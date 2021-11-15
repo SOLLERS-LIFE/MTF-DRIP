@@ -1,0 +1,42 @@
+﻿# podman-compose file, please rename to docker-compose.yml to work with docker
+version: "3.8"
+services:
+  db:
+    image: mariadb:10.5
+    restart: always
+    ports:
+      - 6603:3306
+    volumes:
+      - testdbvol:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: test
+      MYSQL_USER: testbroker
+      MYSQL_PASSWORD: 55555
+      MYSQL_ROOT_PASSWORD: 55555
+      restart: always
+    networks:
+      - wpnet
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+  igstest:
+    depends_on:
+      - db
+    image: vfddfv/sse:latest
+    restart: always
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+    ports:
+      - 8085:85
+    # entrypoint: /bin/bash
+    # command: -c "while true; do sleep 60; done;"
+volumes:
+  testdbvol: {}
+networks:
+  wpnet: {}

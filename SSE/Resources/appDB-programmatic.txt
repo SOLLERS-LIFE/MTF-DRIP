@@ -1,0 +1,217 @@
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+-- Dumping structure for procedure test.clear_test_data
+DROP PROCEDURE IF EXISTS `clear_test_data`;
+
+CREATE PROCEDURE `clear_test_data`()
+    MODIFIES SQL DATA
+whole_proc:
+  BEGIN
+    DECLARE rc int DEFAULT 0;
+    DECLARE msg varchar(255);
+
+    DECLARE EXIT HANDLER
+    FOR SQLEXCEPTION
+    BEGIN
+      ROLLBACK;
+      RESIGNAL;
+    END;
+    
+    START TRANSACTION;
+      TRUNCATE TABLE sseProducts;
+      insert into sseProducts (_name, price)
+      values ("Lavender heart",9.25), 
+             ("Personalised cufflinks",45.00),
+             ("Kids T-shirt",19.95)
+      ;
+    COMMIT;
+
+    SELECT
+      CAST(rc AS INT) AS RetValueInt,
+      CAST(msg AS char(64)) AS RetValueString;
+  END;
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+
+call clear_test_data();
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+-- Dumping structure for procedure test.products_get_all
+DROP PROCEDURE IF EXISTS `products_get_all`;
+
+CREATE PROCEDURE `products_get_all`()
+whole_proc:
+  BEGIN
+    DECLARE rc int DEFAULT 0;
+    DECLARE msg varchar(255) DEFAULT('');
+
+    DECLARE EXIT HANDLER
+    FOR SQLEXCEPTION
+    BEGIN
+      ROLLBACK;
+      RESIGNAL;
+    END;
+    
+    START TRANSACTION;
+      SELECT id, _name AS name, CAST(ROUND(price,2) AS VARCHAR(50)) AS price
+      FROM sseProducts
+      ORDER BY id;
+    COMMIT;
+  END;
+
+-- Dumping structure for procedure test.product_add
+DROP PROCEDURE IF EXISTS `product_add`;
+
+CREATE PROCEDURE `product_add`(
+	IN `_name` VARCHAR(255),
+	IN `_price` DECIMAL(65,30)
+)
+    MODIFIES SQL DATA
+whole_proc:
+  BEGIN
+    DECLARE rc int DEFAULT 0;
+    DECLARE msg varchar(255) DEFAULT('');
+    DECLARE _id INT DEFAULT(0);
+
+    DECLARE EXIT HANDLER
+    FOR SQLEXCEPTION
+    BEGIN
+      ROLLBACK;
+      RESIGNAL;
+    END;
+    
+    START TRANSACTION;
+      INSERT INTO sseProducts (_name, price)
+		VALUES (_name, _price);
+		SET _id := LAST_INSERT_ID();
+    COMMIT;
+
+    SELECT
+      CAST(_id AS INT) AS RetValueInt,
+      CAST(msg AS char(64)) AS RetValueString;
+  END;
+
+-- Dumping structure for procedure test.product_delete_byid
+DROP PROCEDURE IF EXISTS `product_delete_byid`;
+
+CREATE PROCEDURE `product_delete_byid`(
+	IN `_id` INT
+)
+    MODIFIES SQL DATA
+whole_proc:
+  BEGIN
+    DECLARE rc int DEFAULT 0;
+    DECLARE msg varchar(255) DEFAULT('');
+
+    DECLARE EXIT HANDLER
+    FOR SQLEXCEPTION
+    BEGIN
+      ROLLBACK;
+      RESIGNAL;
+    END;
+    
+    START TRANSACTION;
+      SELECT id, _name AS name, CAST(ROUND(price,2) AS VARCHAR(50)) AS price
+      FROM sseProducts
+      WHERE id = _id;
+      IF FOUND_ROWS() > 0
+      THEN
+	      DELETE FROM sseProducts
+	      WHERE id = _id;
+      END IF;
+    COMMIT;
+  END;
+
+-- Dumping structure for procedure test.product_get_byid
+DROP PROCEDURE IF EXISTS `product_get_byid`;
+
+CREATE PROCEDURE `product_get_byid`(
+	IN `_id` INT
+)
+whole_proc:
+  BEGIN
+    DECLARE rc int DEFAULT 0;
+    DECLARE msg varchar(255) DEFAULT('');
+
+    DECLARE EXIT HANDLER
+    FOR SQLEXCEPTION
+    BEGIN
+      ROLLBACK;
+      RESIGNAL;
+    END;
+    
+    START TRANSACTION;
+      SELECT id, _name AS name, CAST(ROUND(price,2) AS VARCHAR(50)) AS price
+      FROM sseProducts
+      WHERE id = _id;
+    COMMIT;
+  END;
+
+-- Dumping structure for procedure test.product_update_byid
+DROP PROCEDURE IF EXISTS `product_update_byid`;
+
+CREATE PROCEDURE `product_update_byid`(
+	IN `_id` INT,
+	IN `_name_` VARCHAR(255),
+	IN `_price` DECIMAL(65,30)
+)
+    MODIFIES SQL DATA
+whole_proc:
+  BEGIN
+    DECLARE rc int DEFAULT 0;
+    DECLARE msg varchar(255) DEFAULT('');
+    DECLARE upd_name BOOLEAN DEFAULT(TRUE);
+    DECLARE upd_price BOOLEAN DEFAULT(TRUE);
+
+    DECLARE EXIT HANDLER
+    FOR SQLEXCEPTION
+    BEGIN
+      ROLLBACK;
+      RESIGNAL;
+    END;
+    
+    START TRANSACTION;
+      IF NOT EXISTS(SELECT * FROM sseProducts WHERE id = _id)
+      THEN
+	      SET rc := -5;
+	   ELSE
+         IF (_name_ = "") THEN SET upd_name := FALSE; END IF;
+         IF (_price = -1) THEN SET upd_price := FALSE; END IF;
+
+	      UPDATE sseProducts
+	      SET _name = IF(upd_name,_name_,_name), price = IF(upd_price,_price,price)
+	      WHERE id = _id;
+	      SET rc := 0;
+      END IF;
+    COMMIT;
+
+    SELECT
+      CAST(rc AS INT) AS RetValueInt,
+      CAST(msg AS char(64)) AS RetValueString;
+  END;
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+
