@@ -1,33 +1,36 @@
-## Senior Backend Engineer - Tech Test
+SSE v 1.04 (Based on my own template for database interfaces I use in production, but significantly simplified and bastardized for clarity ;-) )
 
-### Instructions
+TO INSTALL ON WINDOWS 10+ (Tested Windows 10, Windows 11, Windows Server 2019)
 
-Your goal in this task is to implement a simple back-end for an online marketplace.  Here is a sample of some of the products available on the site.
+Please login with administrator privileges.
 
+Download MariaDB for Windows from https://mariadb.org/download/?t=mariadb&p=mariadb&r=10.6.5&os=windows&cpu=x86_64&pkg=msi&m=ukfast
 
-| Product code  | Name  |  Price |
-|---|---|---|
-|  001 |  Lavender heart | Â£9.25  |
-|  002 |  Personalised cufflinks | Â£45.00  |
-|  003 |  Kids T-shirt | Â£19.95 |
+Keep all options unchanged. Unfortunately, MariaDB mirrors are too slow very often, as such I don’t use powershell script – it can crush any time.
 
-Your task is to create a RESTful API to implement CRUD operations on this data.  You should provide five endpoints: 
+To install and prepare – open your favourite Windows shell, set directory with the downloaded file as current and execute two following command lines:
 
-* GET /products - A list of products, names, and prices in JSON.
-* POST /product - Create a new product using posted form data.
-* GET /product/{product_id} - Return a single product in JSON format.
-* PUT /product/{product_id} - Update a product's name or price by id.
-* DELETE /product/{product_id} - Delete a product by id.
+> msiexec /i "mariadb-10.6.5-winx64.msi" /qb PORT="3306" ALLOWREMOTEROOTACCESS="true" PASSWORD="55555" SERVICENAME="MySQL"
+> "C:\Program Files\MariaDB 10.6\bin\mysql.exe" -uroot -p55555 -e "create database if not exists test;"
 
-The service should be implemented using .Net Core.  Use Swagger to define and allow interaction with your API.  Make sure there are sensible return values for both successful and unsuccessful requests (e.g. the server should report a code such as 404 for an unknown product ID and not error out).
+Then clone repository, build with Degug or Release. Set lunch settings as “Kestrel-development” to run on the local machine. “Kestrel-production” is for container deployment to Docker hub.
 
-Implement a database, though the technology you use is your own choice; you may also use any publicly-available (installable through normal package managers or build systems) ORMs, etc.  
+TO INSTALL ON LINUX (Tested RHEL 8.4, Oracle Linux 8.4) with podman-compose
 
-Provide the finished product as a publicly accessible git repo with all of the code and other files, making sure to include a README that will allow a technically competent user to install and run your app (including any build scripts).  
+In your favourite shell:
 
-A collection of Postman tests will be provided to you with this document, and will be run against your service to verify the results.  Be sure to seed your database with the sample data in the table above before running the tests.
+$ sudo dnf install podman podman-compose
+$ sudo systemctl enable podman.socket --now
 
-A successful submission will pass all of the functional Postman tests.  You will be evaluated on providing a working API as well as basic code style, simplicity, and correctness.  You will not be evaluated on the APIâ€™s robustness or performance, you do not need to secure the API, and you do not need to worry about production server setup (i.e. a frameworkâ€™s default server in debug mode is fine). 
+Please create directory with any name. Copy file container-compose.yml from solution directory to the directory created, set this as a current directory with cd, then
 
-Bonus points (not required for a passing solution):
-* Containerise the solution with Docker.  
+$ podman-compose up -d 1podfw
+
+Then in your browser go to http://127.0.0.1:8085
+The pod has additional interface at http://127.0.0.1:8080 (phpMyAdmin) for a case if database maintenance is required (server: db user: root password: 55555)
+
+NB: The same file can be used with docker-compose, just rename or copy it as docker-compose.yml in the same directory.
+(not tested, unfortunately, Docker still has some problems under strictly secured RHEL and Oracle Linux, that's why I don't have Docker)
+
+ 
+
