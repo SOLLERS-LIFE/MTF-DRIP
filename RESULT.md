@@ -30,7 +30,7 @@ Then in your browser go to http://127.0.0.1:8085
 The pod has additional interface at http://127.0.0.1:8080 (phpMyAdmin) for a case if database maintenance is required (server: db user: root password: 55555)
 
 NB: The same file can be used with docker-compose, just rename or copy it as docker-compose.yml in the same directory.
-(not tested, unfortunately, Docker still has some problems under strictly secured RHEL and Oracle Linux, that's why I don't have it)
+(not tested, unfortunately, Docker still has some problems under strictly secured RHEL and Oracle Linux, that's why I don't have Docker)
 
  
 
