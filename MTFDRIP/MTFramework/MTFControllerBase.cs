@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
 
 namespace MTFramework.Utilities
 {
@@ -21,7 +22,7 @@ namespace MTFramework.Utilities
         {
             var msg = $"exception {ex.GetType().Name} - {ex.Message}{clarification}.";
             _logger.LogWarning(msg);
-            return StatusCode(500, new { msg = msg });
+            return StatusCode(StatusCodes.Status500InternalServerError, new { msg = msg });
         }
     }
 }

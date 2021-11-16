@@ -94,7 +94,7 @@ namespace MTFramework.Controllers
                 _logger.LogError(msg);
 
                 // The idea is to produce status code in dependence of conditions
-                int sCode = 500;
+                int sCode = StatusCodes.Status500InternalServerError;
 
                 return StatusCode(sCode, new { msg = msg });
             }

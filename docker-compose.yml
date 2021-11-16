@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  mtfdrip:
+    image: ${DOCKER_REGISTRY-}mtfdrip
+    build:
+      context: .
+      dockerfile: MTFDRIP/Dockerfile
