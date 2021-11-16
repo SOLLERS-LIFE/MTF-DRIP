@@ -21,6 +21,7 @@ TO INSTALL ON LINUX (Tested RHEL 8.4, Oracle Linux 8.4) with podman-compose
 In your favourite shell:
 
 $ sudo dnf install podman podman-compose
+
 $ sudo systemctl enable podman.socket --now
 
 Please create directory with any name. Copy file container-compose.yml from solution directory to the directory created, set this as a current directory with cd, then
