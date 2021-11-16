@@ -11,6 +11,7 @@ Keep all options unchanged. Unfortunately, MariaDB mirrors are too slow very oft
 To install and prepare – open your favourite Windows shell, set directory with the downloaded file as current and execute two following command lines:
 
 > msiexec /i "mariadb-10.6.5-winx64.msi" /qb PORT="3306" ALLOWREMOTEROOTACCESS="true" PASSWORD="55555" SERVICENAME="MySQL"
+
 > "C:\Program Files\MariaDB 10.6\bin\mysql.exe" -uroot -p55555 -e "create database if not exists test;"
 
 Then clone repository, build with Debug or Release. Set lunch settings as “Kestrel-development” to run on the local machine. “Kestrel-production” is for container deployment to Docker hub.
