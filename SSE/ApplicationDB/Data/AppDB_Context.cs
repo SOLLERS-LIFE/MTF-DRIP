@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using MySqlConnector.Authentication.Ed25519;
 
 using MTFramework.Utilities;
-using SSE.ApplicationDB.Models;
+using MTFDRIP.ApplicationDB.Models;
 
-namespace SSE.ApplicationDB.Data
+namespace MTFDRIP.ApplicationDB.Data
 {
     public partial class AppDB_Context
     // the trick to provide indexes definitions

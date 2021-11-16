@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SSE.Migrations
+namespace MTFDRIP.Migrations
 {
     public partial class init : Migration
     {

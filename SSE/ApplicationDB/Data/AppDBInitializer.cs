@@ -8,10 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 
 using MTFramework.Utilities;
-using SSE.ApplicationDB.Models;
-using SSE.Properties;
+using MTFDRIP.ApplicationDB.Models;
+using MTFDRIP.Properties;
 
-namespace SSE.ApplicationDB.Data
+namespace MTFDRIP.ApplicationDB.Data
 {
     public static class AppDBInitializer
     {

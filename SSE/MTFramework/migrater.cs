@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-using SSE.ApplicationDB.Data;
+using MTFDRIP.ApplicationDB.Data;
 
 namespace MTFramework.Utilities
 { 

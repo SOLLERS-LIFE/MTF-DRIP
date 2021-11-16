@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
 
-namespace SSE.ApplicationDB.Models
+namespace MTFDRIP.ApplicationDB.Models
 {
     [Table("sseProducts")]
     [Index(nameof(_name), IsUnique = false)]

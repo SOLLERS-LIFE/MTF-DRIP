@@ -18,9 +18,9 @@ using Microsoft.OpenApi.Models;
 
 using MTFramework.Utilities;
 
-using SSE.ApplicationDB.Data;
+using MTFDRIP.ApplicationDB.Data;
 
-namespace SSE
+namespace MTFDRIP
 {
     public class Startup
     {

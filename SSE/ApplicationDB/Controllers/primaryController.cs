@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
 
 using MTFramework.Utilities;
-using SSE.ApplicationDB.Models;
-using SSE.ApplicationDB.Data;
+using MTFDRIP.ApplicationDB.Models;
+using MTFDRIP.ApplicationDB.Data;
 
-namespace SSE.ApplicationDB.Controllers
+namespace MTFDRIP.ApplicationDB.Controllers
 {
     /// <summary>
     /// Application interface itself

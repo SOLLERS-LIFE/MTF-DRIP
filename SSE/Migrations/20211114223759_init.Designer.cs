@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SSE.ApplicationDB.Data;
+using MTFDRIP.ApplicationDB.Data;
 
-namespace SSE.Migrations
+namespace MTFDRIP.Migrations
 {
     [DbContext(typeof(AppDB_Context))]
     [Migration("20211114223759_init")]
@@ -18,7 +18,7 @@ namespace SSE.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.12");
 
-            modelBuilder.Entity("SSE.ApplicationDB.Models.sseProducts", b =>
+            modelBuilder.Entity("MTFDRIP.ApplicationDB.Models.sseProducts", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

@@ -17,9 +17,9 @@ using NLog;
 using NLog.Web;
 
 using MTFramework.Utilities;
-using SSE.ApplicationDB.Data;
+using MTFDRIP.ApplicationDB.Data;
 
-namespace SSE
+namespace MTFDRIP
 {
     public class Program
     {
