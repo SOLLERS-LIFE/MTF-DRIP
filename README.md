@@ -1,4 +1,4 @@
-MTF DRIP v 1.04 (Based on my own template for database interfaces I use in production, but significantly simplified and bastardized for clarity ;-) )
+MTF DRIP v 1.1 
 
 TO INSTALL ON WINDOWS 10+ (Tested Windows 10, Windows 11, Windows Server 2019)
 
@@ -6,7 +6,7 @@ Please login with administrator privileges.
 
 Download MariaDB for Windows from https://mariadb.org/download/?t=mariadb&p=mariadb&r=10.6.5&os=windows&cpu=x86_64&pkg=msi&m=ukfast
 
-Keep all options unchanged. Unfortunately, MariaDB mirrors are too slow very often, as such I don’t use powershell script – it can crush any time.
+Keep all options unchanged. Unfortunately, MariaDB mirrors are too slow sometimes, as such I don’t use powershell script – it can crush any time.
 
 To install and prepare – open your favourite Windows shell, set directory with the downloaded file as current and execute two following command lines:
 
