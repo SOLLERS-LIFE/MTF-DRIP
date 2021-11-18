@@ -2,7 +2,7 @@
 
 Jeneral Prototype for service with RESTful API</h3>
 
-TO INSTALL ON WINDOWS 10+ (Tested Windows 10, Windows 11, Windows Server 2019)
+<h5>TO INSTALL ON WINDOWS 10+</h5> (Tested Windows 10, Windows 11, Windows Server 2019)
 
 Please login with administrator privileges.
 
@@ -18,7 +18,7 @@ To install and prepare – open your favourite Windows shell, set directory with
 
 Then clone repository, build with Debug or Release. Set lunch settings as “Kestrel-development” to run on the local machine. “Kestrel-production” is for container deployment to Docker hub.
 
-TO INSTALL ON LINUX (Tested RHEL 8.4, Oracle Linux 8.4) with podman-compose
+<h5>TO INSTALL ON LINUX</h5> (Tested RHEL 8.4, Oracle Linux 8.4) with podman-compose
 
 In your favourite shell:
 
